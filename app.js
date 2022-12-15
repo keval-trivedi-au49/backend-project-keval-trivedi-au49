@@ -1,14 +1,87 @@
 const express = require("express");
-const hbs = require("hbs")
-const routes = require("./src/routes/main")
+const hbs = require("hbs");
+const bodyParser = require("body-parser");
+const routes = require("./src/routes/main");
+const router = require("./src/routes/registration")
 const app = express();
+const port = process.env.PORT || 8000
 const detailModel = require('./src/models/Detailmodel')
+const sliderModel = require('./src/models/sliderModel')
+const servicesModel = require('./src/models/servicesModel')
 const dotenv = require('dotenv')
 dotenv.config()
 const { connectDB } = require("./dbconfig")
 connectDB()
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// parse application/json
+app.use(bodyParser.json())
+
+
+
+
+
+
+// sending the services section data to the database to make it dynamic
+
+// async function sendServicesDetail(){
+  
+//     await servicesModel.create([
+//       {
+//         icon:'fa-sharp fa-solid fa-truck',
+//         title:'Pan-India Delivery',
+//         Description:'We provide Door to Door Delivery.',
+//         linkText:'support',
+//         link:'https://www.amazom.com'
+//       },
+//       {
+//         icon:'fa-solid fa-gear',
+//         title:'Free Installation',
+//         Description:'Client will call you 24 hours after the delivery.',
+//         linkText:'support',
+//         link:'https://www.amazom.com'
+//       },
+    
+//     ])
+//     }
+//     sendServicesDetail()
+
+//********************************************************************* */
+
+
+
+
+//**********sending the slider section data to the database to make it dynamic */
+// async function sendSliderDetail(){
+  
+//   await sliderModel.create([
+//     {
+//       title:'Omega Fabric 3 Seater Sofa',
+//       subTitle:'Bestsellers of the year at the lowest price ever',
+//       imageUrl:"/static/images/sofa1.jpg"
+//     },
+//     {
+//       title:'White-oak 6 seater Dining Set',
+//       subTitle:'Beautify your home with modern style furniture designed just for you at upto 55% off',
+//       imageUrl:"/static/images/dining.jpg"
+//     },
+//     {
+//       title:'Boston solid wood queen size bed',
+//       subTitle:'Teak wood finish with Box storage available at zero cost EMI',
+//       imageUrl:"/static/images/bed.jpg"
+//     }
+//   ])
+//   }
+//   sendSliderDetail()
+
+//******************************************** */
+
+
+
+
+//********sending nav bar section data to to the database to make it dynamic ******
 
 // async function sendDetail(){
   
@@ -42,10 +115,16 @@ connectDB()
 // }
 // sendDetail()
 
+//***************************************************************************/
+
+
+
 
 //static/css/style.css
 app.use('/static',express.static('public'))
 app.use("/", routes);
+app.use("/signup", router);
+
 
 //(template engine)
 
@@ -56,6 +135,6 @@ hbs.registerPartials("views/partials")
 
  
 
-app.listen(process.env.PORT | 8000, () => {
+app.listen(port, () => {
   console.log("server started successfully");
 });
