@@ -43,4 +43,4 @@ routes.get("/sofa",async (req, res) => {
 
 module.exports = routes;
 
-// to configure different web pages we need to create different routes like  and export the module and use it through app.use('/',routes)
+// to configure different web pages we need to create different routes  and export the module and use it through app.use('/',routes)

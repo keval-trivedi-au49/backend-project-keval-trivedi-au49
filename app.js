@@ -1,8 +1,8 @@
 const express = require("express");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
-const routes = require("./src/routes/main");
-const router = require("./src/routes/registration")
+const routes = require("./src/routes/dynamicHome");
+const router = require("./src/routes/authentication")
 const app = express();
 const port = process.env.PORT || 8000
 const detailModel = require('./src/models/Detailmodel')
@@ -123,7 +123,7 @@ app.use(bodyParser.json())
 //static/css/style.css
 app.use('/static',express.static('public'))
 app.use("/", routes);
-app.use("/signup", router);
+app.use("/", router);
 
 
 //(template engine)
