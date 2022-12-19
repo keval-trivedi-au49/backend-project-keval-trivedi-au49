@@ -4,7 +4,9 @@ const routes = express.Router();
 
 const detailModel = require('../models/Detailmodel');
 const sliderModel = require('../models/sliderModel');
-const servicesModel= require('../models/servicesModel')
+const servicesModel= require('../models/servicesModel');
+const queryModel = require("../models/queryModel");
+const aboutModel = require("../models/aboutModel");
 
 
 
@@ -22,11 +24,14 @@ routes.get("/",async (req, res) => {
   const servicesDetail = await servicesModel.find()
   // console.log(servicesDetail);
 
+  const aboutDetail = await aboutModel.findById({"_id":"639f20360c9e6da40420000d"})
+
   // sending the navigation bar,slider and services section data to index.hbs file in key value pair
   res.render("index",{
     details:navDetail,
     slider:sliderDetail,
-    services:servicesDetail
+    services:servicesDetail,
+    about:aboutDetail
   });
 });
 
@@ -40,6 +45,21 @@ routes.get("/sofa",async (req, res) => {
     details:navDetail
   });
 });
+
+
+// process to send queries of customer to the database
+routes.post("/query", async (req,res)=>{
+    try {
+      
+      const queryData = await queryModel.create(req.body);
+      console.log(queryData);
+      res.redirect("/")
+
+    } catch(e) {
+      console.log(e);
+      res.redirect("/")
+    }
+})
 
 module.exports = routes;
 

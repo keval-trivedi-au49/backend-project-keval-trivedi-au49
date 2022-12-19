@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const signupSchema = require("../models/signupModel");
+const signupModel = require("../models/signupModel");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const initializePassport = require("../../passportconfig")
@@ -9,8 +9,8 @@ const flash = require("express-flash");
 const session = require("express-session");
 initializePassport(
    passport,
-   email => users.find(user => user.email === email),
-   id => users.find(user => user.id === id)
+   email => signupModel.find(users => users.email === email),
+   id => signupModel.find(users => users.id === id)
    )
 
    router.use(express.urlencoded({extended: false}))
@@ -50,7 +50,7 @@ router.post("/register",async (req,res)=>{
       } = req.body; 
    if(password === cpassword){
       const password = await bcrypt.hash(req.body.password,10)
-      const userData = new signupSchema({
+      const userData = new signupModel({
          name,
          email,
          password,

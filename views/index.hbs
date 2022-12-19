@@ -16,9 +16,34 @@
        
     {{!-- <h1>Index Page</h1> --}}
 
-     {{!-- sending the details of the slider section to the slider.hbs file in the partials with a const variable(sliderData) so that we can access the array object in the slider.hbs --}}
+  
 
-    {{>slider sliderData = slider}}
+{{!-- **************************************************************** --}}
+      {{!-- banner-1 section --}}
+
+      <section class="banner1_section py-3">
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="text-center">WOODPECKER</h2>
+              <h3 class="text-center">Furnish your home with us,Live your life in comfort.</h3>
+
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+{{!-- ********************************************************* --}}
+
+
+      {{!-- sending the details of the slider section to the slider.hbs file in the partials with a const variable(sliderData) so that we can access the array object in the slider.hbs --}}
+
+     {{>slider sliderData = slider}}
+
+
+        
 
     {{!-- services section(services that we provide) --}}
 
@@ -26,7 +51,7 @@
 
       <div class="container">
 
-        <h2 class="text-center text-secondary">Services that we provide</h2>
+        <h3 class="text-center text-secondary">Services that we provide</h3>
 
         <div class="row mt-5">
           {{!-- 1st service section--1st column of 4X3 grid --}}
@@ -55,7 +80,7 @@
           {{/each}}
 
         
-          {{!-- 2st service section --}}
+          
 
 
         </div>
@@ -64,6 +89,87 @@
       </div>
 
     </section>
+
+
+    {{!-- Query section --}}
+
+
+    <section id="query_section" class="py-5 background-query">
+    <div class="container">
+
+      <h3 class="text-center text-secondary">Contact-Us</h3>
+      <div class="row">
+        <div class="col-md-12">
+      
+      <form action="/query" method="post">
+        <div class="mb-3">
+          <label for="exampleInputName1" class="form-label">Enter your name</label>
+          <input name="name" type="Name" class="form-control" id="exampleInputName1" aria-describedby="NameHelp">
+          
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          
+        </div>
+        
+        
+        <div class="mb-3">
+          <label for="enterContactNumberField" class="form-label">Enter Contact number</label>
+          <input name="phone" type="number" class="form-control" id="enterContactNumberField">
+        </div>
+
+        {{!-- <div class="form my-3">
+          <label for="queryField" >Your Query</label>
+        <textarea name="query" style="height: 250px;" class="form-control" placeholder="Enter your query here" id="queryField">
+          
+        </textarea>
+        
+        </div> --}}
+
+        <div class="form my-3">
+        <label for="floatingTextarea" >Your query:</label>
+        <textarea name="query" style="height:200px;" class="form-control" placeholder="Enter your query here" id="floatingTextarea"></textarea>
+        
+        </div>
+        
+        <div class="container text-center">
+          <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+
+        </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    {{!-- About section --}}
+
+    
+    {{>about aboutData = about}}
+
+    {{!-- Footer section --}}
+    
+    <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="container text-center py-3">
+          <h3 class="text-center text-dark">Follow Us On</h3>
+          <i class="fa-brands fa-instagram footer_icons"></i>
+          <i class="fa-brands fa-facebook footer_icons"></i>
+          <i class="fa-brands fa-twitter footer_icons"></i>
+      </div>
+
+            </div>
+          </div>
+        </div>
+    </footer>
+    {{!-- *************************************************** --}}
+    
+    
     
    
    

@@ -5,16 +5,17 @@ const routes = require("./src/routes/dynamicHome");
 const router = require("./src/routes/authentication")
 const app = express();
 const port = process.env.PORT || 8000
-const detailModel = require('./src/models/Detailmodel')
-const sliderModel = require('./src/models/sliderModel')
-const servicesModel = require('./src/models/servicesModel')
+const detailModel = require('./src/models/Detailmodel');
+const sliderModel = require('./src/models/sliderModel');
+const servicesModel = require('./src/models/servicesModel');
+const aboutModel = require('./src/models/aboutModel')
 const dotenv = require('dotenv')
 dotenv.config()
 const { connectDB } = require("./dbconfig")
 connectDB()
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
@@ -117,6 +118,15 @@ app.use(bodyParser.json())
 
 //***************************************************************************/
 
+//Sending About section to the Database
+
+// async function sendAbout(){
+//     await aboutModel.create({
+//       title:'About Us',
+//       subTitle:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem deserunt dolores architecto nostrum temporibus iste cum vero qui quae accusamus sint amet nulla, sequi quam nesciunt eaque dignissimos, expedita maiores.'
+//     })
+// }
+// sendAbout()
 
 
 
