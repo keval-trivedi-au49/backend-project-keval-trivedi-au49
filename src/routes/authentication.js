@@ -24,12 +24,7 @@ initializePassport(
    router.use(passport.initialize()) 
    router.use(passport.session())
 
-// Configuring the register post functionality
-router.post("/login", passport.authenticate("local", {
-   successRedirect: "/",
-   failureRedirect: "/login",
-   failureFlash: true
-}))   
+ 
 
 router.get("/",(req,res)=>{
    res.render("index")
@@ -63,12 +58,29 @@ router.post("/register",async (req,res)=>{
          }
       })
    } else{
-      res.render("register",{title:"",password:"password not matching",email:""})
+      res.render("register")
    }
 
 
    } catch (error) {
       res.redirect("/register")
+   }
+})
+
+router.post("/login", async (req,res)=>{
+   try {
+      const email = req.body.email
+      const password = req.body.password
+      const RegisteredUserEmail = await signupModel.findOne({email:email})
+      const userPassword = await bcrypt.compare(password,RegisteredUserEmail.password);
+
+      if(userPassword){
+         res.status(201).redirect("/")
+      }else{
+         res.status(400).render("error")
+      }
+   } catch (e) {
+      res.status(400).render("error")
    }
 })
 

@@ -8,10 +8,12 @@ const port = process.env.PORT || 8000
 const detailModel = require('./src/models/Detailmodel');
 const sliderModel = require('./src/models/sliderModel');
 const servicesModel = require('./src/models/servicesModel');
-const aboutModel = require('./src/models/aboutModel')
+const aboutModel = require('./src/models/aboutModel');
+
 const dotenv = require('dotenv')
 dotenv.config()
-const { connectDB } = require("./dbconfig")
+const { connectDB } = require("./dbconfig");
+const sofaModel = require("./src/models/sofaModel");
 connectDB()
 
 // parse application/x-www-form-urlencoded
@@ -127,6 +129,21 @@ app.use(bodyParser.json())
 //     })
 // }
 // sendAbout()
+
+
+// sending sofa section to the database 
+
+// async function sofasData(){
+//   await sofaModel.create({
+//     imageUrl:"/static/images/bed.jpg",
+//     url:"/",
+//     title:"King size Bed",
+//     price:"&#8377; 25000"
+//   })
+// }
+//  sofasData()
+    
+
 
 
 
