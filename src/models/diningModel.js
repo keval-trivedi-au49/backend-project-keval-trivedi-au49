@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 
-const sofaSchema = new Schema({
+const diningSchema = new Schema({
    imageUrl:{
       type:String,
    },
@@ -16,6 +16,6 @@ const sofaSchema = new Schema({
    }
 })
    
-const sofaModel = mongoose.model("sofapage",sofaSchema)
+const diningModel = mongoose.model("diningpage",diningSchema)
 
-module.exports = sofaModel
+module.exports = diningModel

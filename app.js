@@ -9,11 +9,12 @@ const detailModel = require('./src/models/Detailmodel');
 const sliderModel = require('./src/models/sliderModel');
 const servicesModel = require('./src/models/servicesModel');
 const aboutModel = require('./src/models/aboutModel');
+const dModel = require('./src/models/diningModel')
 
 const dotenv = require('dotenv')
 dotenv.config()
 const { connectDB } = require("./dbconfig");
-const sofaModel = require("./src/models/sofaModel");
+const sModel = require("./src/models/sofaModel");
 connectDB()
 
 // parse application/x-www-form-urlencoded
@@ -21,11 +22,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
-
-
-
-
-
 
 // sending the services section data to the database to make it dynamic
 
@@ -134,14 +130,57 @@ app.use(bodyParser.json())
 // sending sofa section to the database 
 
 // async function sofasData(){
-//   await sofaModel.create({
-//     imageUrl:"/static/images/bed.jpg",
+//   await sModel.create([
+//     {
 //     url:"/",
+//     imageUrl:"/static/images/sofa1.jpg",
 //     title:"King size Bed",
 //     price:"&#8377; 25000"
-//   })
+//     },
+//     {
+//     url:"/",
+//     imageUrl:"/static/images/sofa3.jpg",
+//     title:"King size Bed",
+//     price:"&#8377; 25000"  
+//     },
+//     {
+//     url:"/",
+//     imageUrl:"/static/images/sofa3.jpg",
+//     title:"King size Bed",
+//     price:"&#8377; 25000"
+//     }
+ 
+//   ])
 // }
-//  sofasData()
+// sofasData()
+
+
+
+// sending Dining data to the database one time to make it dynamic so that we can fetch the data from the database
+
+// async function diningData(){
+//   await dModel.create([
+//     {
+//       url:"/",
+//       imageUrl:"/static/images/sofa1.jpg",
+//       title:"King size Bed",
+//       price:"&#8377; 25000"
+//     },
+//     {
+//       url:"/",
+//       imageUrl:"/static/images/sofa3.jpg",
+//       title:"King size Bed",
+//       price:"&#8377; 25000"  
+//     },
+//     {
+//       url:"/",
+//       imageUrl:"/static/images/sofa3.jpg",
+//       title:"King size Bed",
+//       price:"&#8377; 25000"
+//     }
+//   ])
+// }
+// diningData()
     
 
 

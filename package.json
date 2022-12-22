@@ -2,9 +2,9 @@
   "name": "dynamic_website",
   "version": "1.0.0",
   "description": "complete node js project",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js -e js,hbs",
     "dev": "nodemon app.js -e js,hbs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

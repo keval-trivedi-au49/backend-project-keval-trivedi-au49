@@ -8,6 +8,7 @@ const servicesModel= require('../models/servicesModel');
 const queryModel = require("../models/queryModel");
 const aboutModel = require("../models/aboutModel");
 const sofaModel = require("../models/sofaModel");
+const diningModel = require("../models/diningModel");
 
 
 
@@ -40,12 +41,24 @@ routes.get("/",async (req, res) => {
 routes.get("/sofa",async (req, res) => {
 
   const navDetail =await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
-  const sofaDetail = await sofaModel.findById({"_id":"63a1f02ce442db377b6d9b47"})
+  const sofaDetail = await sofaModel.find()
 
   //sending the navigation bar data section to the sofas.hbs file in key value pair
   res.render("sofas",{
     details:navDetail,
     sofa:sofaDetail
+  });
+});
+
+routes.get("/dining",async (req, res) => {
+
+  const navDetail =await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
+  const diningDetail = await diningModel.find()
+
+  //sending the navigation bar data section to the sofas.hbs file in key value pair
+  res.render("dinings",{
+    details:navDetail,
+    dining:diningDetail
   });
 });
 
