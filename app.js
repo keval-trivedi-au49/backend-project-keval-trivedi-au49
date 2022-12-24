@@ -4,12 +4,13 @@ const bodyParser = require("body-parser");
 const routes = require("./src/routes/dynamicHome");
 const router = require("./src/routes/authentication")
 const app = express();
-const port = process.env.PORT || 8000
+
 const detailModel = require('./src/models/Detailmodel');
 const sliderModel = require('./src/models/sliderModel');
 const servicesModel = require('./src/models/servicesModel');
 const aboutModel = require('./src/models/aboutModel');
-const dModel = require('./src/models/diningModel')
+const dModel = require('./src/models/diningModel');
+const bModel = require('./src/models/bedModel')
 
 const dotenv = require('dotenv')
 dotenv.config()
@@ -22,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
+
+const PORT = process.env.PORT || 8000
 
 // sending the services section data to the database to make it dynamic
 
@@ -183,7 +186,32 @@ app.use(bodyParser.json())
 // diningData()
     
 
+// sending Dining data to the database one time to make it dynamic so that we can fetch the data from the database
 
+
+// async function bedData(){
+//   await bModel.create([
+//     {
+//       url:"/",
+//       imageUrl:"/static/images/sofa1.jpg",
+//       title:"King size Bed",
+//       price:"&#8377; 25000"
+//     },
+//     {
+//       url:"/",
+//       imageUrl:"/static/images/sofa3.jpg",
+//       title:"King size Bed",
+//       price:"&#8377; 25000"  
+//     },
+//     {
+//       url:"/",
+//       imageUrl:"/static/images/sofa3.jpg",
+//       title:"King size Bed",
+//       price:"&#8377; 25000"
+//     }
+//   ])
+// }
+// bedData()
 
 
 //static/css/style.css
@@ -192,7 +220,7 @@ app.use("/", routes);
 app.use("/", router);
 
 
-//(template engine)
+//(template engine) Middleware
 
 app.set("view engine", "hbs");
 app.set("views", "views");
@@ -201,6 +229,6 @@ hbs.registerPartials("views/partials")
 
  
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("server started successfully");
 });
