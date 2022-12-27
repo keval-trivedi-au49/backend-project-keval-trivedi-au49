@@ -4,6 +4,7 @@ const router = express.Router();
 const signupModel = require("../models/signupModel");
 const bcrypt = require("bcrypt");
 const cookieParser = require("cookie-parser");
+const auth = require("../middleware/auth");
 
 
 router.use(cookieParser());
@@ -21,7 +22,7 @@ router.get("/register",(req,res)=>{
    res.render("register")
 })
 router.get("/sofa",(req,res)=>{
-   console.log(`the cookie is : ${req.cookies.jwt}`)
+   // console.log(`the cookie is : ${req.cookies.jwt}`)
    res.render("sofas")
 })
 
@@ -78,7 +79,7 @@ router.post("/login", async (req,res)=>{
       console.log(`the token part is : ${token}`);
 
       res.cookie("jwt",token,{
-         expires:new Date(Date.now() + 60000)
+         expires:new Date(Date.now() + 6000000)
       })
 
       if(userPassword){
@@ -88,6 +89,21 @@ router.post("/login", async (req,res)=>{
       }
    } catch (e) {
       res.status(400).render("error")
+   }
+})
+
+router.get("/logout",auth, async(req,res)=>{
+   try {
+      console.log(req.user);
+      req.user.tokens = req.user.tokens.filter((currElement)=>{
+         return currElement.token !== req.token
+      })
+      res.clearCookie("jwt");
+      console.log("logout successfully");
+      await req.user.save()
+      res.render("login")
+   } catch (error) {
+      res.status(500).render("error")
    }
 })
 

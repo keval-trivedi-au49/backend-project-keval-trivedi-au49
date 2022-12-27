@@ -18,7 +18,7 @@ routes.use(cookieParser());
 
 
 
-routes.get("/",auth,async (req, res) => {
+routes.get("/",async (req, res) => {
   //fetching the navigation bar section data from the database
   const navDetail =await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
   // console.log(navDetail);
