@@ -3,26 +3,11 @@ const express = require("express");
 const router = express.Router();
 const signupModel = require("../models/signupModel");
 const bcrypt = require("bcrypt");
-const passport = require("passport");
-const initializePassport = require("../../passportconfig")
-const flash = require("express-flash");
-const session = require("express-session");
-initializePassport(
-   passport,
-   email => signupModel.find(users => users.email === email),
-   id => signupModel.find(users => users.id === id)
-   )
+const cookieParser = require("cookie-parser");
 
-   router.use(express.urlencoded({extended: false}))
-   router.use(flash())
-   router.use(session({
-         secret: 'keyboard cat',
-       resave: false, // We wont resave the session variable if nothing is changed
-       saveUninitialized: false,
-       cookie: { secure: true }
-   }))
-   router.use(passport.initialize()) 
-   router.use(passport.session())
+
+router.use(cookieParser());
+
 
  
 
@@ -35,6 +20,11 @@ router.get("/login",(req,res)=>{
 router.get("/register",(req,res)=>{
    res.render("register")
 })
+router.get("/sofa",(req,res)=>{
+   console.log(`the cookie is : ${req.cookies.jwt}`)
+   res.render("sofas")
+})
+
 router.post("/register",async (req,res)=>{
    try {
       const { 
@@ -50,10 +40,21 @@ router.post("/register",async (req,res)=>{
          email,
          password,
       })
+      console.log("the success part" + userData);
+      
+      const token = await userData.generateAuthToken();
+      console.log(`the token part is : ${token}`);
+
+      //The res.cookie() function is used to set the cookie name to value
+         res.cookie("jwt",token,{
+            expires:new Date(Date.now() + 60000)
+         })
+      
       userData.save(err=>{
          if (err) {
             console.log("Error");
          } else {
+            
             res.redirect("/login")
          }
       })
@@ -73,6 +74,12 @@ router.post("/login", async (req,res)=>{
       const password = req.body.password
       const RegisteredUserEmail = await signupModel.findOne({email:email})
       const userPassword = await bcrypt.compare(password,RegisteredUserEmail.password);
+      const token = await RegisteredUserEmail.generateAuthToken();
+      console.log(`the token part is : ${token}`);
+
+      res.cookie("jwt",token,{
+         expires:new Date(Date.now() + 60000)
+      })
 
       if(userPassword){
          res.status(201).redirect("/")
@@ -85,10 +92,6 @@ router.post("/login", async (req,res)=>{
 })
 
 
-// router.get("/logout", (req , res, ){
-//     req.logout();
-//    res.redirect("/login")
-// }) 
 
 module.exports = router;
 

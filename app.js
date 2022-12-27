@@ -1,9 +1,12 @@
+const dotenv = require('dotenv')
+dotenv.config()
 const express = require("express");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 const routes = require("./src/routes/dynamicHome");
 const router = require("./src/routes/authentication")
 const app = express();
+const cookieParser = require("cookie-parser");
 
 const detailModel = require('./src/models/Detailmodel');
 const sliderModel = require('./src/models/sliderModel');
@@ -12,8 +15,7 @@ const aboutModel = require('./src/models/aboutModel');
 const dModel = require('./src/models/diningModel');
 const bModel = require('./src/models/bedModel')
 
-const dotenv = require('dotenv')
-dotenv.config()
+
 const { connectDB } = require("./dbconfig");
 const sModel = require("./src/models/sofaModel");
 connectDB()
@@ -23,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
+
 
 const PORT = process.env.PORT || 8000
 
@@ -216,8 +219,10 @@ const PORT = process.env.PORT || 8000
 
 //static/css/style.css
 app.use('/static',express.static('public'))
+//middleware
 app.use("/", routes);
 app.use("/", router);
+
 
 
 //(template engine) Middleware
@@ -225,6 +230,8 @@ app.use("/", router);
 app.set("view engine", "hbs");
 app.set("views", "views");
 hbs.registerPartials("views/partials")
+
+// console.log(process.env.SESSION_KEY);
 
 
  

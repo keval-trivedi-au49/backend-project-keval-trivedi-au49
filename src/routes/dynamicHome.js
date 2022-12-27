@@ -10,11 +10,15 @@ const aboutModel = require("../models/aboutModel");
 const sofaModel = require("../models/sofaModel");
 const diningModel = require("../models/diningModel");
 const bedModel = require("../models/bedModel");
+const cookieParser = require("cookie-parser");
+const auth = require("../middleware/auth")
+
+routes.use(cookieParser());
 
 
 
 
-routes.get("/",async (req, res) => {
+routes.get("/",auth,async (req, res) => {
   //fetching the navigation bar section data from the database
   const navDetail =await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
   // console.log(navDetail);
@@ -30,6 +34,7 @@ routes.get("/",async (req, res) => {
   const aboutDetail = await aboutModel.findById({"_id":"639f20360c9e6da40420000d"})
 
   // sending the navigation bar,slider and services section data to index.hbs file in key value pair
+
   
   res.render("index",{
     details:navDetail,
@@ -40,11 +45,12 @@ routes.get("/",async (req, res) => {
 });
 
 
-routes.get("/sofa",async (req, res) => {
+routes.get("/sofa",auth,async (req, res) => {
 
   const navDetail =await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
   const sofaDetail = await sofaModel.find()
 
+  console.log(`the cookie is : ${req.cookies.jwt}`)
   //sending the navigation bar data section to the sofas.hbs file in key value pair
   //sending the sofa data section to the sofas.hbs file in key value pair
   res.render("sofas",{
@@ -53,7 +59,7 @@ routes.get("/sofa",async (req, res) => {
   });
 });
 
-routes.get("/dining",async (req, res) => {
+routes.get("/dining",auth,async (req, res) => {
 
   const navDetail =await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
   const diningDetail = await diningModel.find()
@@ -66,7 +72,7 @@ routes.get("/dining",async (req, res) => {
   });
 });
 
-routes.get("/bed",async (req,res)=>{
+routes.get("/bed",auth,async (req,res)=>{
   const navDetail = await detailModel.findById({"_id":"639598a34ddba701e11e3a4d"})
   const bedDetail = await bedModel.find()
 
